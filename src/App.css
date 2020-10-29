@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'digital';
+    src: local('digital'), url(./fonts/digital.ttf);
+}
+@font-face {
+    font-family: 'avenir';
+    src: local('avenir'), url(./fonts/avenir.ttf);
+}
+
+.timerDisplay {
+    background: rgba(241, 228, 178, 0.4);
+    border: 5px solid #00833E;
+    color: #222;
+    font-family: 'avenir', sans-serif;
+    font-size: 18px;
+    text-align:center;
+    line-height: 2;
+    padding: 15px 20px 5px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+}
+.timerDisplay .numbers {
+    font-family: 'digital';
+    font-size: 50px;
+    letter-spacing: 6px;
+    padding-left: 9px;
+}
