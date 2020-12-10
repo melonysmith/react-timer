@@ -1,17 +1,24 @@
 import React, { Component } from "react";
 import "./App.css";
 
-const resetInterval = 60;
+const RESET_INTERVAL = 60
+
+const formatTime = (time) =>
+  `
+    ${String(Math.floor(time / 60)).padStart(2, "00")}:
+    ${String(time % 60).padStart(2, "0")}
+  `
+;
 
 const Timer = ({ time }) => {
-  const timeRemaining = resetInterval - (time % resetInterval);
+  const timeRemaining = RESET_INTERVAL - (time % RESET_INTERVAL);
 
   return (
     <>
       <div className="timerDisplay">
         <span className="timerText">Time Remaning</span>
         <br></br>
-        <span className="timerNumbers">{(timeRemaining)}</span>
+        <span className="timerDigits">{formatTime(timeRemaining)}</span>
       </div>
     </>
   );
@@ -22,9 +29,11 @@ class TimerClass extends Component {
     time: 0
   };
 
+  timerId = null;
+
   componentDidMount() {
     this.timerId = setInterval(() => {
-      this.setState((prevState) => ({ time: prevState.time + 1 }));
+      this.setState((prevState) => ({ time: prevState.time + 1}));
     }, 1000);
   }
 
