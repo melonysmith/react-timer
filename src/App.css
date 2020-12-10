@@ -8,23 +8,24 @@
 }
 
 .timerDisplay {
-    background: rgba(241, 228, 178, 0.4);
+    background: rgba(241, 228, 178, 0.5);
     border: 5px solid #00833E;
-    text-align:center;
-    padding: 15px 20px 0;
+    padding: 10px 20px;
     position: absolute;
     top: 30%;
     left: 50%;
+    text-align:center;
     transform: translate(-50%, -50%);
 }
+
 .timerText {
     color: #222;
-    font-family: 'avenir', sans-serif;
+    font-family: 'Avenir', sans-serif;
     font-size: 18px;
     text-transform: uppercase;
 }
-.timerNumbers {
+
+.timerDigits {
     font-family: 'digital', monospace;
-    font-size: 50px;
-    line-height: 1.5;
+    font-size: 30px;
 }
