@@ -1,55 +1,63 @@
-import React, { Component } from "react";
+import React from "react";
+import ReactDOM from 'react-dom'
 import "./App.css";
 
-const RESET_INTERVAL = 60
+const {useState, useEffect} = React;
 
-const formatTime = (time) =>
-  `
-    ${String(Math.floor(time / 60)).padStart(2, "00")}:
-    ${String(time % 60).padStart(2, "0")}
-  `
-;
+const Countdown = () => {
+  const [countdownDate] =  useState(new Date(60 * 1000).getTime());
+  const [state, setState] = useState({
+    minutes: 1,
+    seconds: 0,
+  });
 
-const Timer = ({ time }) => {
-  const timeRemaining = RESET_INTERVAL - (time % RESET_INTERVAL);
+  useEffect(() => {
+    setInterval(() => setNewTime(), 1000);
+  },);
+
+  const setNewTime = () => {
+    if (countdownDate) {
+      const currentTime = new Date(60 * 1000).getTime();
+
+      const distanceToDate = countdownDate - currentTime;
+
+      let minutes = Math.floor(
+        (distanceToDate % (1000 * 60 * 60)) / (1000 * 60),
+      );
+      let seconds = Math.floor((distanceToDate % (1000 * 60)) / 1000);
+
+      const numbersToAddZeroTo = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+      if (numbersToAddZeroTo.includes(minutes)) {
+        minutes = `0${minutes}`;
+      } else if (numbersToAddZeroTo.includes(seconds)) {
+        seconds = `0${seconds}`;
+      }
+
+      setState({ minutes:minutes, seconds:seconds });
+    }
+  };
 
   return (
-    <>
-      <div className="timerDisplay">
-        <span className="timerText">Time Remaning</span>
-        <br></br>
-        <span className="timerDigits">{formatTime(timeRemaining)}</span>
+    <div>
+      <h3 className="subtitle">Time Remaining:</h3>
+      <div className='countdown-wrapper'>
+        <div className='time-section'>
+          <div className='time'>{state.minutes || '00'}</div>
+          <small className="time-text">Minutes</small>
+        </div>
+        <div className='time-section'>
+          <div className='time'>:</div>
+        </div>
+        <div className='time-section'>
+          <div className='time'>{state.seconds || '00'}</div>
+          <small className="time-text">Seconds</small>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
-class TimerClass extends Component {
-  state = {
-    time: 0
-  };
+ReactDOM.render(<Countdown />, document.getElementById('root'));
 
-  timerId = null;
-
-  componentDidMount() {
-    this.timerId = setInterval(() => {
-      this.setState((prevState) => ({ time: prevState.time + 1}));
-    }, 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerId);
-  }
-
-  render() {
-    return <Timer time={this.state.time} />;
-  }
-}
-
-export default function App() {
-  return (
-    <div className="App">
-      <TimerClass />
-    </div>
-  );
-}
+export default Countdown;
